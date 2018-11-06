@@ -4,21 +4,22 @@
 % data processing work flows. Waveforms are exported with each row being a
 % separate event, as more rows can be included in a datawave output than
 % columns.
-cd('D:\mouse free moving\839\Neuron characterization\839_051615\')
+
 clear data*
-ddffilename = '839_051615_Char_USV_80dB_random_1_spikes';
+ddffilename = '839_0516313_Char_BBN_30_1_spikes';
 filename_spikes = [ddffilename, '_spikeoverlay2.txt'];
 filename_peth = [ddffilename, '_peth2.txt'];
 data.animalnum = 839;
 data.date = 051613;
 data.condition = 'free_moving'; % free_moving, restrained
-data.presentationmode = 'randomized'; % randomized, blocked, ISI_200, ISI_500, RLF
-data.soundCat = 'Vocal'; % BBN, Tones, Vocal, Sensory_gating
-data.stimList = {'find'}; % BBN_X, p100_X, find
+data.presentationmode = 'blocked'; % randomized, blocked, ISI_200, ISI_500, RLF
+data.soundCat = 'BBN'; % BBN, Tones, Vocal, Sensory_gating
+data.stimList = {'BBN_30'}; % BBN_X, p100_X, find
 data.UnitID = '02a';
 data.channel = 'Ch3';
 
 %% import data
+cd(['D:\mouse free moving\839\Neuron characterization\839_051615
 data_spikes = readtable(filename_spikes);
 data_peth = readtable(filename_peth);
 

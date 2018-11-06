@@ -30,7 +30,7 @@ if ~exist('neuron', 'var')
     load('Reference.mat')
     reference(end+1).UnitID = neuron.UnitID;
     reference(end).UnitType = neuron.UnitType;
-    reference(end).animalNum = neuron.animalnum;
+    reference(end).animalNum = neuron.animalNum;
     reference(end).Date = neuron.Date;
      save('Reference.mat', 'reference', '-v7.3')
     clear reference

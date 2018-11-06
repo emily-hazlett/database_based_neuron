@@ -46,5 +46,8 @@ for i =1:length(data.stimList)
             neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).noise.trace = ...
                 chunker_trace(chunker_id == 0,:);
         end
+        
+        neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).preStim = data.preStim;
+        neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).postStim = data.postStim;
     end
 end

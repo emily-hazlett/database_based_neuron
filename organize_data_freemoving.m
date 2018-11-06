@@ -12,9 +12,9 @@ if contains(data.soundCat, 'gating', 'IgnoreCase', true)
     end
 elseif ~contains(data.stimList, 'BBN')
     if ismember('StimNameR', data_peth.Properties.VariableNames) % Does StimName field exist in the marker?
-        data.stim = data_peth.(find(contains('StimName', data_peth.Properties.VariableNames)));
-        data.postStim = 850;
-        data.preStim = 150;
+        data.stim = data_peth.(find(contains(data_peth.Properties.VariableNames, 'StimName')));
+        data.postStim = 890;
+        data.preStim = 110;
         data.soundcalibrate = 80; % dB SPL of stimuli at 0 dB attenuation
         
         % Find wave file names
@@ -78,7 +78,7 @@ data.stimList = unique(data.stim);
 data.attenList = unique(data_peth.(find(contains(data_peth.Properties.VariableNames, 'Atten', 'IgnoreCase', true))));
 data.attenList = cellstr(horzcat(repmat('dB_', length(data.attenList),1),num2str(data.soundcalibrate - data.attenList)));
 data.timestamp = abs(data_peth.Timestamp);
-data.peth = table2array(data_peth(:,end-1000:end));
+data.peth = table2array(data_peth(:,end-999:end));
 dater = num2str(data.date);
 if numel(dater) == 5
     dater = ['0', dater];
