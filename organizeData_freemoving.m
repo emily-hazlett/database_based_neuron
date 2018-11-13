@@ -11,31 +11,12 @@ if contains(data.soundCat, 'gating', 'IgnoreCase', true)
         data.soundcalibrate = 80;
     end
 elseif ~contains(data.stimList, 'BBN')
-    if ismember('StimNameR', data_peth.Properties.VariableNames) % Does StimName field exist in the marker?
-        data.stim = data_peth.(find(contains(data_peth.Properties.VariableNames, 'StimName')));
-        data.postStim = 890;
-        data.preStim = 110;
-        data.soundcalibrate = 80; % dB SPL of stimuli at 0 dB attenuation
         
-        % Find wave file names
-    elseif iscell(data_peth.(find(contains(data_peth.Properties.VariableNames, 'WAV')))) % Is the wav filename field empty?)
+    % Find wave file names
+    if iscell(data_peth.(find(contains(data_peth.Properties.VariableNames, 'WAV')))) % Is the wav filename field empty?)
         index = find(contains(data_peth.Properties.VariableNames, 'WAV'));
         stimListNew = data_peth.(index);
-        stimListNew(contains(stimListNew, '\p100_11'),1) = {'p100_11'};
-        stimListNew(contains(stimListNew, '\p100_10'),1) = {'p100_10'};
-        stimListNew(contains(stimListNew, '\p100_1'),1) = {'p100_1'};
-        stimListNew(contains(stimListNew, '\p100_2'),1) = {'p100_2'};
-        stimListNew(contains(stimListNew, '\p100_3'),1) = {'p100_3'};
-        stimListNew(contains(stimListNew, '\p100_4'),1) = {'p100_4'};
-        stimListNew(contains(stimListNew, '\p100_5'),1) = {'p100_5'};
-        stimListNew(contains(stimListNew, '\p100_6'),1) = {'p100_6'};
-        stimListNew(contains(stimListNew, '\p100_7'),1) = {'p100_7'};
-        stimListNew(contains(stimListNew, '\p100_8'),1) = {'p100_8'};
-        stimListNew(contains(stimListNew, '\p100_9'),1) = {'p100_9'};
-        stimListNew(contains(stimListNew, '\Appease'),1) = {'Appease'};
-        stimListNew(contains(stimListNew, '\Biosonar'),1) = {'Biosonar'};
-        stimListNew(contains(stimListNew, '\HighAgg'),1) = {'HighAgg'};
-        stimListNew(contains(stimListNew, '\LowAgg'),1) = {'LowAgg'};
+        run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\wavFileLookUp_freemoving.m')
         data.stim = stimListNew;
         data.soundCat = 'Vocal';
         data.postStim = 890;
@@ -55,6 +36,12 @@ elseif ~contains(data.stimList, 'BBN')
         data.soundcalibrate = 80;
         data.preStim = 100+ data_peth.(find(contains(data_peth.Properties.VariableNames, 'TimeShift', 'IgnoreCase', true),1))(1);
         data.postStim = 900- data_peth.(find(contains(data_peth.Properties.VariableNames, 'TimeShift', 'IgnoreCase', true),1))(1);
+    
+    elseif ismember('StimNameR', data_peth.Properties.VariableNames) % Does StimName field exist in the marker?
+        data.stim = data_peth.(find(contains(data_peth.Properties.VariableNames, 'StimName')));
+        data.postStim = 890;
+        data.preStim = 110;
+        data.soundcalibrate = 80; % dB SPL of stimuli at 0 dB attenuation
     else
         
         % Dunno what it is

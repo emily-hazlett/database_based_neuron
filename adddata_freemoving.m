@@ -1,12 +1,25 @@
 %% Add PETH and spike waveforms to data structure
 for i =1:length(data.stimList)
     for ii = 1:length(data.attenList)
+        if isfield(neuron, 'Sounds')
+            if isfield(neuron.Sounds, data.soundCat)
+                if isfield(neuron.Sounds.(data.soundCat), data.stimList{i})
+                    if isfield(neuron.Sounds.(data.soundCat).(data.stimList{i}), data.condition)
+                        if isfield(neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition), data.presentationmode)
+                            if isfield(neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode), data.attenList{ii})
+                                data.presentationmode = [data.presentationmode, '_retest'];
+                            end
+                        end
+                    end
+                end
+            end
+        end
         % Save peth and markertimes for all presentations of this stimulus
         neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).peth = ...
             data.peth(strcmp(data.stimList{i},data.stim), :)';
         neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).markertime = ...
             data.timestamp(strcmp(data.stimList{i},data.stim), :)';
-        
+            
         % Find spikes that happen around each presentation of each sound
         chunker_timestamp = [];
         chunker_id = [];
@@ -49,5 +62,7 @@ for i =1:length(data.stimList)
         
         neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).preStim = data.preStim;
         neuron.Sounds.(data.soundCat).(data.stimList{i}).(data.condition).(data.presentationmode).(data.attenList{ii}).postStim = data.postStim;
+        
+        data.presentationmode = strrep(data.presentationmode, '_retest', ''); %remove retest suffix if it was addedd
     end
 end

@@ -4,9 +4,9 @@ reflookup = dir('*.mat');
 
 % Look up by unit ID if listed, otherwise look for entries with the naimal
 % number and date
-if exist('data.UnitID','var')
+if isfield(data, 'UnitID')
     for r = 1:size(reflookup,1)
-        if contains(reflookup(r).UnitID,data.UnitID)
+        if contains(reflookup(r).name,data.UnitID)
             load(reflookup(r).name)
             break
         end
@@ -25,6 +25,7 @@ end
 if ~exist('neuron', 'var')
     neuron.UnitID = 'unassigned';
     neuron.UnitType = 'unassigned';
+    neuron.channel = 'undetermined';
     neuron.animalNum = data.animalnum;
     neuron.Date = data.date;
     load('Reference.mat')
