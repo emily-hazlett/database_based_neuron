@@ -57,7 +57,7 @@ for i = 1:size(fileList,1)
 end
 
 %Batch through each file
-for i = 1: size(dataSet1,2)
+for i = 3:size(dataSet1,2)
     clearvars -except dataSet1 i
     data = dataSet1(i);
     cd('D:\bat restrained\Bat Restrained Sorted Files_complete\')

@@ -3,7 +3,7 @@ data.attenList = strrep(data.attenList, ' ', '');
 data.stimList =  strrep(data.stimList, ' ', '');
 
 for s =1:length(data.stimList)
-    if data.stimList{s} ~= '0'
+    if any(data.stimList{s} ~= '0')
         for ii = 1:length(data.attenList)
             if isfield(neuron, 'Sounds')
                 if isfield(neuron.Sounds, data.soundCat)
@@ -18,9 +18,9 @@ for s =1:length(data.stimList)
             end
             % Save peth and markertimes for all presentations of this stimulus
             neuron.Sounds.(data.soundCat).(data.stimList{s}).(data.presentationmode).(data.attenList{ii}).peth = ...
-                data.peth(strcmp(data.stimList{s},data.stim), :)';
+                data.peth(strcmp(data.stimList{s},data.stim) & strcmp(data.attenList{ii},data.atten), :)';
             neuron.Sounds.(data.soundCat).(data.stimList{s}).(data.presentationmode).(data.attenList{ii}).markertime = ...
-                data.timestamp(strcmp(data.stimList{s},data.stim), :)';
+                data.timestamp(strcmp(data.stimList{s},data.stim) & strcmp(data.attenList{ii},data.atten), :)';
             
             % Does the peth indicate that any spikes occured?
             if any(any(neuron.Sounds.(data.soundCat).(data.stimList{s}).(data.presentationmode).(data.attenList{ii}).peth)) == 1

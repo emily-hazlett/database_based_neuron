@@ -24,21 +24,22 @@ elseif contains(data.soundCat, 'BBN', 'IgnoreCase', true)
     index3 = find(contains(data_peth.Properties.VariableNames, 'RampDown'));
     durations = data_peth.(index1) + data_peth.(index2) + data_peth.(index3);
     if length(unique(durations)) == 1
-        data.stim(1:size(data_peth,1)) = {['BBN_', num2str(unique(durations))]};
+        data.stim(1:size(data_peth),1) = {['BBN_', num2str(unique(durations))]};
     else
-        data.stim(1:size(data_peth,1)) = {'BBN_X'};
+        data.stim(1:size(data_peth),1) = {'BBN_X'};
     end
     data.preStim = data.preStim+ data_peth.(find(contains(data_peth.Properties.VariableNames, 'TimeShift', 'IgnoreCase', true),1))(1);
     data.postStim = data.postStim- data_peth.(find(contains(data_peth.Properties.VariableNames, 'TimeShift', 'IgnoreCase', true),1))(1);
     
     % Dunno what it is
 else
-    data.stim(1:size(data_peth,1)) = {'undetermined'};
+    data.stim(1:size(data_peth),1) = {'undetermined'};
 end
 
 data.stimList = unique(data.stim);
-data.attenList = unique(data_peth.(find(contains(data_peth.Properties.VariableNames, 'Atten', 'IgnoreCase', true))));
-data.attenList = cellstr(horzcat(repmat('dB_', length(data.attenList),1),num2str(data.soundcalibrate - data.attenList)));
+data.atten = data_peth.(find(contains(data_peth.Properties.VariableNames, 'Atten', 'IgnoreCase', true)));
+data.atten = cellstr(horzcat(repmat('dB_', length(data.atten),1),num2str(data.soundcalibrate - data.atten)));
+data.attenList = unique(data.atten);
 data.timestamp = abs(data_peth.Timestamp);
 data.peth = table2array(data_peth(:,end-999:end));
 dater = data.date;
