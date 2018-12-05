@@ -3,7 +3,7 @@
 if contains(data.soundCat, 'Vocal', 'IgnoreCase', true)
     index = find(contains(data_peth.Properties.VariableNames, 'Wav', 'IgnoreCase', true));
     stimListNew = data_peth.(index);
-    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\wavFileLookUp_marie.m')
+    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\Marie\wavFileLookUp_marie.m')
     data.stim = stimListNew;
     
     % Tones

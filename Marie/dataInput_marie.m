@@ -57,7 +57,7 @@ for i = 1:size(fileList,1)
 end
 
 %Batch through each file
-for i = 3:size(dataSet1,2)
+for i =1 :size(dataSet1,2)
     clearvars -except dataSet1 i
     data = dataSet1(i);
     cd('D:\bat restrained\Bat Restrained Sorted Files_complete\')
@@ -73,15 +73,15 @@ for i = 3:size(dataSet1,2)
     %% organize data about neuron
     % Examines marker info from input text files to find information about the
     % test
-    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\organizeData_marie.m')
+    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\Marie\organizeData_marie.m')
     
     %% Find out if this neuron has been processed before
     % either loads neuron if it has been run before or updates reference.mat
     % with new neuron information
-    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\neuronLookUp_marie.m')
+    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\Marie\neuronLookUp_marie.m')
     
     %% Add PETH and spike waveforms to data structure
-    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\addData_marie.m')
+    run('C:\Users\emily\OneDrive\Documents\GitHub\database_based_neuron\Marie\addData_marie.m')
 end
 
 

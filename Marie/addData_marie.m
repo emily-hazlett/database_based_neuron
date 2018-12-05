@@ -16,6 +16,12 @@ for s =1:length(data.stimList)
                     end
                 end
             end
+            
+            % was this stimulus actually presented?
+            if size(data.peth(strcmp(data.stimList{s},data.stim) & strcmp(data.attenList{ii},data.atten), :)', 2) == 0
+                continue
+            end
+            
             % Save peth and markertimes for all presentations of this stimulus
             neuron.Sounds.(data.soundCat).(data.stimList{s}).(data.presentationmode).(data.attenList{ii}).peth = ...
                 data.peth(strcmp(data.stimList{s},data.stim) & strcmp(data.attenList{ii},data.atten), :)';
@@ -23,7 +29,7 @@ for s =1:length(data.stimList)
                 data.timestamp(strcmp(data.stimList{s},data.stim) & strcmp(data.attenList{ii},data.atten), :)';
             
             % Does the peth indicate that any spikes occured?
-            if any(any(neuron.Sounds.(data.soundCat).(data.stimList{s}).(data.presentationmode).(data.attenList{ii}).peth)) == 1
+            if any(any(neuron.Sounds.(data.soundCat).(data.stimList{s}).(data.presentationmode).(data.attenList{ii}).peth)) > 0
                 
                 % Find spikes that happen around each presentation of each sound
                 chunker_timestamp = [];
